@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="cn" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>React - Hooks | Jassica</title><meta name="keywords" content="React"><meta name="author" content="刘俊宏"><meta name="copyright" content="刘俊宏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Hook 一些可以在函数组件中使用React state和生命周期等特性的函数 不能在 class 组件中使用  State Hook useState 类似class组件中的 this.setState，但它不会合并 新旧state 在函数调用时保存变量。state中的变量会被React保留 唯一的参数就是初始state 返回值：当前state和更新state的函数    12345678910">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React - Hooks">
+<meta property="og:url" content="http://example.com/2019/05/03/react/React%20-%20Hooks/index.html">
+<meta property="og:site_name" content="Jassica">
+<meta property="og:description" content="Hook 一些可以在函数组件中使用React state和生命周期等特性的函数 不能在 class 组件中使用  State Hook useState 类似class组件中的 this.setState，但它不会合并 新旧state 在函数调用时保存变量。state中的变量会被React保留 唯一的参数就是初始state 返回值：当前state和更新state的函数    12345678910">
+<meta property="og:locale">
+<meta property="og:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg">
+<meta property="article:published_time" content="2019-05-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-13T07:47:10.306Z">
+<meta property="article:author" content="刘俊宏">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg"><link rel="shortcut icon" href="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"><link rel="canonical" href="http://example.com/2019/05/03/react/React%20-%20Hooks/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'React - Hooks',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-13 15:47:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jassica</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">React - Hooks</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2019-05-02T16:00:00.000Z" title="Created 2019-05-03 00:00:00">2019-05-03</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Hook"><a href="#Hook" class="headerlink" title="Hook"></a>Hook</h1><ul>
+<li>一些可以在函数组件中使用React state和生命周期等特性的函数</li>
+<li>不能在 class 组件中使用</li>
+</ul>
+<h2 id="State-Hook"><a href="#State-Hook" class="headerlink" title="State Hook"></a>State Hook</h2><ul>
+<li>useState<ul>
+<li>类似class组件中的 this.setState，但它不会合并 新旧state</li>
+<li>在函数调用时保存变量。state中的变量会被React保留</li>
+<li>唯一的参数就是初始state</li>
+<li>返回值：当前state和更新state的函数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入Hook</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Example</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 声明</span></span><br><span class="line">    <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">                Click me</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数式 setState 结合展开运算符 来合并更新对象</span></span><br><span class="line"><span class="title function_">setState</span>(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 也可以使用 Object.assign</span></span><br><span class="line">    <span class="keyword">return</span> &#123;...prevState, ...updatedValues&#125;;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// useReducer 是另一种方案，它更适合用于管理包含多个子值的 state 对象</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方括号用途</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> [fruit, setFruit] = <span class="title function_">useState</span>(<span class="string">&#x27;banana&#x27;</span>);</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">var</span> fruitStateVariable = <span class="title function_">useState</span>(<span class="string">&#x27;banana&#x27;</span>); <span class="comment">// 返回一个有两个元素的数组</span></span><br><span class="line"><span class="keyword">var</span> fruit = fruitStateVariable[<span class="number">0</span>]; <span class="comment">// 数组里的第一个值</span></span><br><span class="line"><span class="keyword">var</span> setFruit = fruitStateVariable[<span class="number">1</span>]; <span class="comment">// 数组里的第二个值</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Effect-Hook"><a href="#Effect-Hook" class="headerlink" title="Effect Hook"></a>Effect Hook</h2><ul>
+<li><p>React组件中副作用： 是否需要清除</p>
+</li>
+<li><p>无需清除的effect</p>
+<ul>
+<li>在更新DOM之后运行额外代码（网络请求、手动改变DOM、记录日志）</li>
+<li>在class组件中：副作用操作放到 <code>componentDidMount</code> 和 <code>componentDidUpdate</code> 函数中</li>
+<li>⚠️ 与以上俩API不同，useEffect</li>
+</ul>
+</li>
+<li><p>useEffect</p>
+<ul>
+<li>类似：class组件中的 componentDidMount、componentDidUpdate 和 componentWillUnmount 合成</li>
+<li>通过它可以告诉React组件需要在渲染后执行的操作</li>
+<li>每次渲染都会执行，在执行下一个 effect 之前，上一个effect就已经被清除</li>
+</ul>
+</li>
+<li><p>需要清除的effect（订阅外部数据源）</p>
+<ul>
+<li>返回函数的清除机制。添加移除放一起</li>
+<li>React在组件卸载时执行清除操作</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">ChatAPI</span>.<span class="title function_">subscribeToFriendStatus</span>(props.<span class="property">friend</span>.<span class="property">id</span>, handleStatusChange);</span><br><span class="line">    <span class="comment">// 销毁时执行</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title class_">ChatAPI</span>.<span class="title function_">unsubscribeFromFriendStatus</span>(props.<span class="property">friend</span>.<span class="property">id</span>, handleStatusChange);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行时机<ul>
+<li>会在浏览器会之后延迟执行，但会保证在新的渲染前执行</li>
+</ul>
+</li>
+<li>条件执行<ul>
+<li>执行只运行一次的 effect（仅在组件挂载和卸载时执行），第二个参数为[]，代表effect不依赖 props或state中的任何值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> subscription = props.<span class="property">source</span>.<span class="title function_">subscribe</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        subscription.<span class="title function_">unsubscribe</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, [props.<span class="property">source</span>]);</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义Hook"><a href="#自定义Hook" class="headerlink" title="自定义Hook"></a>自定义Hook</h2><ul>
+<li>组件重用状态逻辑解决方案：<code>高阶组件</code>、 <code>render props</code>、<code>自定义Hook</code></li>
+<li>Hook是一种复用状态逻辑的方式，它不复用 state 本身</li>
+<li>Hook的每次调用都有一个完全独立的state</li>
+</ul>
+<h2 id="提取自定义Hook"><a href="#提取自定义Hook" class="headerlink" title="提取自定义Hook"></a>提取自定义Hook</h2><ul>
+<li>名称以 “use” 开头，函数内部可以调用其他Hook</li>
+<li>多个组件使用相同的hook不会共享state</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">useFriendStatus</span>(<span class="params">friendID</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [isOnline, setIsOnline] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> isOnline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他Hook"><a href="#其他Hook" class="headerlink" title="其他Hook"></a>其他Hook</h2><ul>
+<li>useContext：不使用组件嵌套就可以订阅 React的Context<ul>
+<li>调用了useContext的组件总会在 context 值变化时重新渲染<ul>
+<li>只是能够<code>读取 context 的值</code> 和<code>订阅 context的变化</code>，仍需要在上层组件中使用 <code>&lt;MyContext.Provider&gt;</code> 为下层组件提供 context</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数必须是 context 对象本身</span></span><br><span class="line"><span class="keyword">const</span> value = <span class="title function_">useContext</span>(<span class="title class_">MyContext</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 相当于class组件中的 static contextType = MyContext 或 &lt;MyContext.Consumer&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> themes = &#123;</span><br><span class="line">    <span class="attr">light</span>: &#123;</span><br><span class="line">        <span class="attr">foreground</span>: <span class="string">&quot;#000000&quot;</span>,</span><br><span class="line">        <span class="attr">background</span>: <span class="string">&quot;#eeeeee&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">dark</span>: &#123;</span><br><span class="line">        <span class="attr">foreground</span>: <span class="string">&quot;#ffffff&quot;</span>,</span><br><span class="line">        <span class="attr">background</span>: <span class="string">&quot;#222222&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">ThemeContext</span> = <span class="title class_">React</span>.<span class="title function_">createContext</span>(themes.<span class="property">light</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">ThemeContext.Provider</span> <span class="attr">value</span>=<span class="string">&#123;themes.dark&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Toolbar</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">ThemeContext.Provider</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Toolbar</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">ThemedButton</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ThemedButton</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> theme = <span class="title function_">useContext</span>(<span class="title class_">ThemeContext</span>);</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;background:</span> <span class="attr">theme.background</span>, <span class="attr">color:</span> <span class="attr">theme.foreground</span>&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">            I am styled by theme context!</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useReducer：管理组件本地的复杂state<ul>
+<li>useState 的替代方案</li>
+<li>场景：state逻辑较复杂并且包含多个子值或 下个state 依赖于之前的state</li>
+<li>给触发深更新的组件做性能优化：可以向子组件传递 dispatch 而不是回调函数</li>
+<li>返回值与当前 state相同，React 将跳过子组件的渲染和副作用的执行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Todos</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [state, dispatch] = <span class="title function_">useReducer</span>(reducer, initialArg, init);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useCallback</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> memoizedCallback = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">doSomething</span>(a, b);</span><br><span class="line">&#125;, [a, b]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// useCallback(fn, deps) 相当于 useMemo(() =&gt; fn, deps)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useMemo<ul>
+<li>传入的函数会在渲染期间执行，不要在此函数内执行与渲染无关的操作</li>
+<li>如果没有依赖项数组，useMemo 在每次渲染时都会计算新值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> memoizedValue = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> <span class="title function_">computeExpensiveValue</span>(a, b), [a, b]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useRef<ul>
+<li>返回一个可变的 ref对象，它在组件的整个生命周期内保持不变</li>
+<li>useRef() 和自建一个 {current: …} 对象的唯一区别是，useRef 会在每次渲染时返回同一个 ref 对象</li>
+<li>在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> refContainer = <span class="title function_">useRef</span>(initialValue);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useImperativeHandle<ul>
+<li>在使用 ref 时自定义暴露给父组件的实例值。应当与 forwardRef一起使用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useImperativeHandle</span>(ref, createHandle, [deps])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FancyInput</span>(<span class="params">props, ref</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>();</span><br><span class="line">    <span class="title function_">useImperativeHandle</span>(ref, <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">        <span class="attr">focus</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            inputRef.<span class="property">current</span>.<span class="title function_">focus</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;));</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span> <span class="attr">...</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">FancyInput</span> = <span class="title function_">forwardRef</span>(<span class="title class_">FancyInput</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染 &lt;FancyInput ref=&#123;inputRef&#125; /&gt; 的父组件可以调用 inputRef.current.focus()</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>useLayoutEffect</p>
+<ul>
+<li>会在所有的 DOM 变更之后同步调用 effect</li>
+<li>useLayoutEffect 与 componentDidMount、componentDidUpdate 的调用阶段是一样的</li>
+<li>使用服务端渲染，useLayoutEffect 和 useEffect 都无法在 js 代码加载完之前执行</li>
+<li>服务端渲染中排除依赖布局 effect 的组件，可通过<code>showChild &amp;&amp; &lt;Child /&gt;</code>进行条件渲染,使用 useEffect(() &#x3D;&gt; { setShowChild(true); }, [])<br>延迟展示组件来避免UI错乱</li>
+</ul>
+</li>
+<li><p>useDebugValue</p>
+<ul>
+<li>用于在 React 开发者工具中显示自定义 hook 的标签</li>
+<li>第二个可选参数为格式化函数，只有在Hook被检查时才会被调用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">useFriendStatus</span>(<span class="params">friendID</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> [isOnline, setIsOnline] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 在开发者工具中的这个 Hook 旁边显示标签</span></span><br><span class="line">    <span class="comment">// e.g. &quot;FriendStatus: Online&quot;</span></span><br><span class="line">    <span class="title function_">useDebugValue</span>(isOnline ? <span class="string">&#x27;Online&#x27;</span> : <span class="string">&#x27;Offline&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> isOnline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useDebugValue</span>(date, <span class="function"><span class="params">date</span> =&gt;</span> date.<span class="title function_">toDateString</span>());</span><br></pre></td></tr></table></figure>
+
+<h1 id="Hook-规则"><a href="#Hook-规则" class="headerlink" title="Hook 规则"></a>Hook 规则</h1><h2 id="只在最顶层使用Hook"><a href="#只在最顶层使用Hook" class="headerlink" title="只在最顶层使用Hook"></a>只在最顶层使用Hook</h2><ul>
+<li><p>只能在 <code>函数最外层</code> 调用，不要在循环、条件判断、子函数中调用</p>
+</li>
+<li><p>只能在<code>React函数组件``自定义Hook</code>中调用</p>
+</li>
+<li><p>ESLint插件： eslint-plugin-react-hooks</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ESLint 配置</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;plugins&quot;</span></span><br><span class="line">:</span><br><span class="line">    [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="string">&quot;react-hooks&quot;</span></span><br><span class="line">    ],</span><br><span class="line">        <span class="string">&quot;rules&quot;</span></span><br><span class="line">:</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="string">&quot;react-hooks/rules-of-hooks&quot;</span></span><br><span class="line">    :</span><br><span class="line">        <span class="string">&quot;error&quot;</span>, <span class="comment">// 检查 Hook 的规则</span></span><br><span class="line">            <span class="string">&quot;react-hooks/exhaustive-deps&quot;</span></span><br><span class="line">    :</span><br><span class="line">        <span class="string">&quot;warn&quot;</span> <span class="comment">// 检查 effect 的依赖</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a></div><div class="post_share"><div class="social-share" data-image="https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/05/react/React%20-%20Api/"><img class="prev-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">React - Api</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/02/react/React%20-%20%E9%AB%98%E7%BA%A7%E6%8C%87%E5%BC%95/"><img class="next-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/4.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">React - 高级指引</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/05/05/react/React%20-%20Api/" title="React - Api"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-05</div><div class="title">React - Api</div></div></a></div><div><a href="/2022/08/13/react/React%20-%20%E6%BA%90%E7%A0%81/" title="React -  源码"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">React -  源码</div></div></a></div><div><a href="/2019/05/01/react/React%20-%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" title="React - 核心概念"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-01</div><div class="title">React - 核心概念</div></div></a></div><div><a href="/2019/05/02/react/React%20-%20%E9%AB%98%E7%BA%A7%E6%8C%87%E5%BC%95/" title="React - 高级指引"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/4.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-02</div><div class="title">React - 高级指引</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hook"><span class="toc-text">Hook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#State-Hook"><span class="toc-text">State Hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effect-Hook"><span class="toc-text">Effect Hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Hook"><span class="toc-text">自定义Hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E8%87%AA%E5%AE%9A%E4%B9%89Hook"><span class="toc-text">提取自定义Hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96Hook"><span class="toc-text">其他Hook</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hook-%E8%A7%84%E5%88%99"><span class="toc-text">Hook 规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E5%9C%A8%E6%9C%80%E9%A1%B6%E5%B1%82%E4%BD%BF%E7%94%A8Hook"><span class="toc-text">只在最顶层使用Hook</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2022 By 刘俊宏</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>

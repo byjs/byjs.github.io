@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="cn" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JavaScript | Jassica</title><meta name="keywords" content="JavaScript"><meta name="author" content="刘俊宏"><meta name="copyright" content="刘俊宏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="闭包 函数的嵌套 函数内部可以引用外部的变量和参数 变量和参数不会被垃圾回收机制回收  跨域jsonp 只能实现get一种请求  document.domain ➕ iframe 主域相同，子域不同 两个都是通过js 强制设置document.domain为基础主域，就成同域  location.hash ➕ iframe a域与b域相互通信，通过中间页c来实现。三个页面不同域之间利用iframe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript">
+<meta property="og:url" content="http://example.com/2019/05/10/js/JavaScript/index.html">
+<meta property="og:site_name" content="Jassica">
+<meta property="og:description" content="闭包 函数的嵌套 函数内部可以引用外部的变量和参数 变量和参数不会被垃圾回收机制回收  跨域jsonp 只能实现get一种请求  document.domain ➕ iframe 主域相同，子域不同 两个都是通过js 强制设置document.domain为基础主域，就成同域  location.hash ➕ iframe a域与b域相互通信，通过中间页c来实现。三个页面不同域之间利用iframe">
+<meta property="og:locale">
+<meta property="og:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg">
+<meta property="article:published_time" content="2019-05-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-10T07:38:51.284Z">
+<meta property="article:author" content="刘俊宏">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg"><link rel="shortcut icon" href="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"><link rel="canonical" href="http://example.com/2019/05/10/js/JavaScript/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-10 15:38:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jassica</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2019-05-09T16:00:00.000Z" title="Created 2019-05-10 00:00:00">2019-05-10</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ul>
+<li>函数的嵌套</li>
+<li>函数内部可以引用外部的变量和参数</li>
+<li>变量和参数不会被垃圾回收机制回收</li>
+</ul>
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><ul>
+<li>只能实现get一种请求</li>
+</ul>
+<h2 id="document-domain-➕-iframe"><a href="#document-domain-➕-iframe" class="headerlink" title="document.domain ➕ iframe"></a><code>document.domain</code> ➕ <code>iframe</code></h2><ul>
+<li>主域相同，子域不同</li>
+<li>两个都是通过js 强制设置<code>document.domain</code>为基础主域，就成同域</li>
+</ul>
+<h2 id="location-hash-➕-iframe"><a href="#location-hash-➕-iframe" class="headerlink" title="location.hash ➕ iframe"></a><code>location.hash</code> ➕ <code>iframe</code></h2><ul>
+<li>a域与b域相互通信，通过中间页c来实现。三个页面不同域之间利用iframe的location.hash传值，相同域之间直接js访问通信</li>
+</ul>
+<h2 id="window-name➕iframe"><a href="#window-name➕iframe" class="headerlink" title="window.name➕iframe"></a><code>window.name</code>➕<code>iframe</code></h2><ul>
+<li>跨域数据由<code>iframe</code> 的 <code>window.name</code> 从外域传到本地域</li>
+</ul>
+<h2 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h2><ul>
+<li>页面和打开的新窗口的数据传递</li>
+<li>多窗口之间消息传递</li>
+<li>页面与嵌套 <code>iframe</code> 消息传递</li>
+</ul>
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><ul>
+<li>前端设置是否带  <code>cookie xhr.withCredentials = true</code></li>
+</ul>
+<h2 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h2><ul>
+<li>通过nginx 配置代理服务器</li>
+</ul>
+<h2 id="nodejs中间件代理"><a href="#nodejs中间件代理" class="headerlink" title="nodejs中间件代理"></a>nodejs中间件代理</h2><h2 id="webSocket-协议"><a href="#webSocket-协议" class="headerlink" title="webSocket 协议"></a>webSocket 协议</h2><ul>
+<li>非vue：<code>node + express + http-proxy-middleware</code> 搭建proxy 服务器</li>
+<li>vue：<code>node + webpack + webpack-dev-server</code></li>
+</ul>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><h2 id="冒泡：从里到外"><a href="#冒泡：从里到外" class="headerlink" title="冒泡：从里到外"></a>冒泡：从里到外</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 阻止 </span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">event</span>.<span class="property">cancelBubble</span> = <span class="literal">true</span>;</span><br><span class="line">||</span><br><span class="line">event.<span class="title function_">stopPropagation</span>();</span><br></pre></td></tr></table></figure>
+
+<h2 id="捕获：从外到里"><a href="#捕获：从外到里" class="headerlink" title="捕获：从外到里"></a>捕获：从外到里</h2><h2 id="委托（代理）：利用事件冒泡"><a href="#委托（代理）：利用事件冒泡" class="headerlink" title="委托（代理）：利用事件冒泡"></a>委托（代理）：利用事件冒泡</h2><h1 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h1><ul>
+<li>get</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建异步对象</span></span><br><span class="line"><span class="keyword">var</span> ajax = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line"><span class="comment">// 设置请求参数（&quot;请求的类型&quot;,&quot;请求url&quot;）</span></span><br><span class="line">ajax.<span class="title function_">open</span>(<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;getStar.php?name= &#x27;</span> + name)</span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">ajax.<span class="title function_">send</span>()</span><br><span class="line"><span class="comment">// 注册事件 onreadystatechange 状态改变就会调用</span></span><br><span class="line">ajax.<span class="property">onreadystatechange</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ajax.<span class="property">reagyState</span> == <span class="number">4</span> &amp;&amp; ajax.<span class="property">status</span> == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(ajax.<span class="property">responseText</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>post</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建异步对象</span></span><br><span class="line"><span class="keyword">var</span> ajax = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line"><span class="comment">// post 请求必须添加请求头</span></span><br><span class="line">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&#x27;Content-type&#x27;</span>, <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>)</span><br><span class="line"><span class="comment">// 设置请求参数（&quot;请求的类型&quot;,&quot;请求url&quot;）</span></span><br><span class="line">ajax.<span class="title function_">open</span>(<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;getStar.php&#x27;</span>)</span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">ajax.<span class="title function_">send</span>(<span class="string">&#x27;name=liu&#x27;</span>)</span><br><span class="line"><span class="comment">// 注册事件 onreadystatechange 状态改变就会调用</span></span><br><span class="line">ajax.<span class="property">onreadystatechange</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ajax.<span class="property">reagyState</span> == <span class="number">4</span> &amp;&amp; ajax.<span class="property">status</span> == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(ajax.<span class="property">responseText</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="重绘和回流"><a href="#重绘和回流" class="headerlink" title="重绘和回流"></a>重绘和回流</h1><ul>
+<li>回流必引起重绘，重绘不一定引起回流</li>
+<li>避免操作dom、table布局、多层内联样式</li>
+</ul>
+<h2 id="回流的产生"><a href="#回流的产生" class="headerlink" title="回流的产生"></a>回流的产生</h2><ul>
+<li>页面首次渲染，开销最大的回流</li>
+<li>浏览器窗口尺寸、元素位置、文件数量、图片尺寸、元素字体大小改变</li>
+</ul>
+<h2 id="重绘的产生"><a href="#重绘的产生" class="headerlink" title="重绘的产生"></a>重绘的产生</h2><ul>
+<li>只是外观改变不影响布局</li>
+</ul>
+<h1 id="浏览器存储"><a href="#浏览器存储" class="headerlink" title="浏览器存储"></a>浏览器存储</h1><h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><ul>
+<li>临时存储，不支持跨页面，关闭小时并回收</li>
+</ul>
+<h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><ul>
+<li>长期存储，手动清除，最大存储5M</li>
+</ul>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><ul>
+<li>服务端 <code>set cookie</code> 4k, 不适合放重要数据</li>
+</ul>
+<h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><h2 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h2></article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/10/js/JavaScript%20-%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/"><img class="prev-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JavaScript</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/05/react/React%20-%20Api/"><img class="next-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">React - Api</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/05/27/js/JavaScript%20-%20Promise/" title="JavaScript - Promise"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a50c68a33bd7333fd112ddb575f1b9adc5788d88.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-27</div><div class="title">JavaScript - Promise</div></div></a></div><div><a href="/2019/11/21/js/JavaScript%20-%20%E5%85%B3%E4%BA%8ErequestAnimationFrame/" title="JavaScript - requestAnimationFrame"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a8e180bb17a9f555c05c0bf9045b5fe25f921faa.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-21</div><div class="title">JavaScript - requestAnimationFrame</div></div></a></div><div><a href="/2019/05/10/js/JavaScript%20-%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/" title="JavaScript"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-10</div><div class="title">JavaScript</div></div></a></div><div><a href="/2020/03/18/js/JavaScript%20-%20%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JavaScript - 垃圾回收"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/c1bf8b0bda021c37da1005ffe0e30b1758874132.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-18</div><div class="title">JavaScript - 垃圾回收</div></div></a></div><div><a href="/2021/02/06/js/JavaScript%20-%20%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="JavaScript - 微前端"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-06</div><div class="title">JavaScript - 微前端</div></div></a></div><div><a href="/2020/12/25/js/JavaScript%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/" title="v8 的事件循环"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/311ce36d52f16c1f85ad648b214ab4b4f29dcfab.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-25</div><div class="title">v8 的事件循环</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F"><span class="toc-text">跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jsonp"><span class="toc-text">jsonp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#document-domain-%E2%9E%95-iframe"><span class="toc-text">document.domain ➕ iframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#location-hash-%E2%9E%95-iframe"><span class="toc-text">location.hash ➕ iframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#window-name%E2%9E%95iframe"><span class="toc-text">window.name➕iframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#postMessage"><span class="toc-text">postMessage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS"><span class="toc-text">CORS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">nginx反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nodejs%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BB%A3%E7%90%86"><span class="toc-text">nodejs中间件代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webSocket-%E5%8D%8F%E8%AE%AE"><span class="toc-text">webSocket 协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6"><span class="toc-text">事件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%EF%BC%9A%E4%BB%8E%E9%87%8C%E5%88%B0%E5%A4%96"><span class="toc-text">冒泡：从里到外</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%95%E8%8E%B7%EF%BC%9A%E4%BB%8E%E5%A4%96%E5%88%B0%E9%87%8C"><span class="toc-text">捕获：从外到里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A7%94%E6%89%98%EF%BC%88%E4%BB%A3%E7%90%86%EF%BC%89%EF%BC%9A%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1"><span class="toc-text">委托（代理）：利用事件冒泡</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ajax"><span class="toc-text">ajax</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81"><span class="toc-text">重绘和回流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%B5%81%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-text">回流的产生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%BB%98%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="toc-text">重绘的产生</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AD%98%E5%82%A8"><span class="toc-text">浏览器存储</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sessionStorage"><span class="toc-text">sessionStorage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#localStorage"><span class="toc-text">localStorage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8"><span class="toc-text">安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xss"><span class="toc-text">xss</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2022 By 刘俊宏</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
