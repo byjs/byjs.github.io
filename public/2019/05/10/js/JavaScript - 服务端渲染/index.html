@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="cn" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JavaScript | Jassica</title><meta name="keywords" content="JavaScript"><meta name="author" content="刘俊宏"><meta name="copyright" content="刘俊宏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="服务端渲染概念 SSR：服务端渲染，由服务侧完成页面的DOM结构拼接，发送到浏览器，为其绑定状态与事件，成为完全可交互页面的过程 CSR：客户端渲染，由客户端JS完成页面和数据的拼接，生成DOM结构交由浏览器渲染成页面的过程 SPA：单页面应用，只有一张WEB页面的应用，在导航切换的过程中页面不会刷新，只是局部更新内容。SPA实现的原理采用了CSR，页面中所有内容由JS控制，需要浏览器进行JS解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript">
+<meta property="og:url" content="http://example.com/2019/05/10/js/JavaScript%20-%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/index.html">
+<meta property="og:site_name" content="Jassica">
+<meta property="og:description" content="服务端渲染概念 SSR：服务端渲染，由服务侧完成页面的DOM结构拼接，发送到浏览器，为其绑定状态与事件，成为完全可交互页面的过程 CSR：客户端渲染，由客户端JS完成页面和数据的拼接，生成DOM结构交由浏览器渲染成页面的过程 SPA：单页面应用，只有一张WEB页面的应用，在导航切换的过程中页面不会刷新，只是局部更新内容。SPA实现的原理采用了CSR，页面中所有内容由JS控制，需要浏览器进行JS解析">
+<meta property="og:locale">
+<meta property="og:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg">
+<meta property="article:published_time" content="2019-05-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-15T00:48:02.643Z">
+<meta property="article:author" content="刘俊宏">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg"><link rel="shortcut icon" href="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"><link rel="canonical" href="http://example.com/2019/05/10/js/JavaScript%20-%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-15 08:48:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jassica</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2019-05-09T16:00:00.000Z" title="Created 2019-05-10 00:00:00">2019-05-10</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>SSR：服务端渲染，由服务侧完成页面的DOM结构拼接，发送到浏览器，为其绑定状态与事件，成为完全可交互页面的过程</li>
+<li>CSR：客户端渲染，由客户端JS完成页面和数据的拼接，生成DOM结构交由浏览器渲染成页面的过程</li>
+<li>SPA：单页面应用，只有一张WEB页面的应用，在导航切换的过程中页面不会刷新，只是局部更新内容。SPA实现的原理采用了CSR，页面中所有内容由JS控制，需要浏览器进行JS解析才能显示</li>
+<li>SEO：搜索引擎化，利用搜索引擎的规则提高网站在有关搜索引擎内的自然排名</li>
+<li>SSG：预渲染，无需服务器实时动态编译，在构建时针对特定路由简单生成静态HTML文件</li>
+</ul>
+<p><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/9735a98e2efb25bea15caae7c575d1a26cc418fe.png" alt="CSR"></p>
+<p><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/0a0fb815ac7f037533aba714e22ca05a5b00b0dc.png" alt="SSR"></p>
+<ul>
+<li><p>SAP 缺点</p>
+<ul>
+<li>对SEO不友好，SEO是通过抓去网页源码中的关键字来简历索引库，而SPA源码中没有内容，而是通过js添加进去的，网站就会被搜索引擎直接pass掉了</li>
+<li>首屏加载速度慢，页面内容由js拼接，浏览器等待js处理完成后才能渲染真正的DOM 结构，多了一些等待时间</li>
+</ul>
+</li>
+<li><p>服务端渲染 优点</p>
+<ul>
+<li>前端耗时少。后端拼接完HTML，浏览器只需要直接渲染</li>
+<li>有利于SEO。后端有完整的HTML页面，爬虫更容易获取信息</li>
+<li>无需占用客户端资源。解析模版的工作完全交给后端来做，客户端只要解析标准的HTML页面即可，这样对于客户端的资源占用更少，尤其是移动端</li>
+<li>后端生成静态化文件。生成缓存片段，这样就可以减少数据库查询时间，对于数据变化不大的页面非常高效</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>占用服务器资源。服务器端完成HTML模版的解析，如果请求较多，会对服务器造成一定的压力。</li>
+<li>不利于前后端分离</li>
+</ul>
+</li>
+<li><p>客户端渲染 优点</p>
+<ul>
+<li>前后端分离。前端专注UI，后端专注API，且前端有更过的选择性，不需要遵循后端特定的模版</li>
+<li>体验更好。尤其移动端，体验接近原生APP</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>前端响应较慢。前端进行拼接数据的过程，需要耗费额外的时间</li>
+<li>不利于SEO。服务器端没有保存完整的HTML，而是JS通过DOM拼接，爬虫无法爬去信息</li>
+</ul>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/10/js/JavaScript/"><img class="prev-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JavaScript</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/05/react/React%20-%20Api/"><img class="next-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">React - Api</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2020/03/18/js/JavaScript%20-%20%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JavaScript - 垃圾回收"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/c1bf8b0bda021c37da1005ffe0e30b1758874132.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-18</div><div class="title">JavaScript - 垃圾回收</div></div></a></div><div><a href="/2019/06/05/js/JavaScript%20-%20%E7%BB%A7%E6%89%BF/" title="JavaScript - 继承"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/f02edc75f539318a6b642f6cb91f33f49c0074ed.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-05</div><div class="title">JavaScript - 继承</div></div></a></div><div><a href="/2019/05/10/js/JavaScript/" title="JavaScript"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-10</div><div class="title">JavaScript</div></div></a></div><div><a href="/2019/06/06/js/JavaScript%20-%20%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" title="JavaScript - 防抖和节流"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/46889eea6d0674bb77690ab8656721804f555de9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-06</div><div class="title">JavaScript - 防抖和节流</div></div></a></div><div><a href="/2019/05/27/js/JavaScript%20-%20Promise/" title="JavaScript - Promise"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a50c68a33bd7333fd112ddb575f1b9adc5788d88.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-27</div><div class="title">JavaScript - Promise</div></div></a></div><div><a href="/2019/11/21/js/JavaScript%20-%20%E5%85%B3%E4%BA%8ErequestAnimationFrame/" title="JavaScript - requestAnimationFrame"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a8e180bb17a9f555c05c0bf9045b5fe25f921faa.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-21</div><div class="title">JavaScript - requestAnimationFrame</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93"><span class="toc-text">服务端渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2022 By 刘俊宏</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>

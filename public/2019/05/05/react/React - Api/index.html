@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="cn" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>React - Api | Jassica</title><meta name="keywords" content="React"><meta name="author" content="刘俊宏"><meta name="copyright" content="刘俊宏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="React 顶层 API组件 React.Component  React.PureComponent  仅在props 和 state 简单时使用，在深层数据结构发生变化时调用 forceUpdate() 来确保组件被正确地更新。使用immutable 对象加速嵌套数据的比较   React.memo  只适用函数组件，不适用class组件 仅检查props变化，memo包裹组件并且视线中拥有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React - Api">
+<meta property="og:url" content="http://example.com/2019/05/05/react/React%20-%20Api/index.html">
+<meta property="og:site_name" content="Jassica">
+<meta property="og:description" content="React 顶层 API组件 React.Component  React.PureComponent  仅在props 和 state 简单时使用，在深层数据结构发生变化时调用 forceUpdate() 来确保组件被正确地更新。使用immutable 对象加速嵌套数据的比较   React.memo  只适用函数组件，不适用class组件 仅检查props变化，memo包裹组件并且视线中拥有">
+<meta property="og:locale">
+<meta property="og:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg">
+<meta property="article:published_time" content="2019-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-13T07:47:10.310Z">
+<meta property="article:author" content="刘俊宏">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg"><link rel="shortcut icon" href="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"><link rel="canonical" href="http://example.com/2019/05/05/react/React%20-%20Api/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'React - Api',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-13 15:47:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jassica</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">React - Api</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2019-05-04T16:00:00.000Z" title="Created 2019-05-05 00:00:00">2019-05-05</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="React-顶层-API"><a href="#React-顶层-API" class="headerlink" title="React 顶层 API"></a>React 顶层 API</h1><h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
+<li><p>React.Component</p>
+</li>
+<li><p>React.PureComponent</p>
+<ul>
+<li>仅在props 和 state 简单时使用，在深层数据结构发生变化时调用 forceUpdate() 来确保组件被正确地更新。使用<code>immutable 对象</code>加速嵌套数据的比较</li>
+</ul>
+</li>
+<li><p>React.memo</p>
+<ul>
+<li>只适用函数组件，不适用class组件</li>
+<li>仅检查props变化，memo包裹组件并且视线中拥有 useState 或 useContext的hook，发生变化时，仍会重新渲染</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 默认情况只对复杂对象浅对比</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyComponent</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="comment">/* 使用 props 渲染 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">areEqual</span>(<span class="params">prevProps, nextProps</span>) &#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    props相等返回true,不相等返回false</span></span><br><span class="line"><span class="comment">    与 shouldComponentUpdate 返回值相反（不等于返回true）</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">React</span>.<span class="title function_">memo</span>(<span class="title class_">MyComponent</span>, areEqual);</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-React-元素"><a href="#创建-React-元素" class="headerlink" title="创建 React 元素"></a>创建 React 元素</h2><ul>
+<li>createElement()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line">    type, <span class="comment">// 标签字符串（&#x27;div&#x27;）、React组件类型、Fragment</span></span><br><span class="line">    [props],</span><br><span class="line">    [...children]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>createFactory()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用于生成指定类型React元素的函数， 类型参数与createElement相似</span></span><br><span class="line"><span class="title class_">React</span>.<span class="title function_">createFactory</span>(type)</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作元素"><a href="#操作元素" class="headerlink" title="操作元素"></a>操作元素</h2><ul>
+<li>cloneElement()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">cloneElement</span>(</span><br><span class="line">    element,</span><br><span class="line">    [props],</span><br><span class="line">    [...children]</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 几乎等同于</span></span><br><span class="line"></span><br><span class="line">&lt; element.<span class="property">type</span></span><br><span class="line">&#123;...</span><br><span class="line">    element.<span class="property">props</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;...</span><br><span class="line">    props</span><br><span class="line">&#125;</span><br><span class="line">&gt;</span><br><span class="line">&#123;</span><br><span class="line">    children</span><br><span class="line">&#125;</span><br><span class="line">&lt;/element.<span class="property">type</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>isValidElement()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是否为React元素</span></span><br><span class="line"><span class="title class_">React</span>.<span class="title function_">isValidElement</span>(object)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>React.Children<ul>
+<li>React.Children.map</li>
+<li>React.Children.forEach</li>
+<li>React.Children.count</li>
+<li>React.Children.only</li>
+<li>React.Children.toArray</li>
+</ul>
+</li>
+</ul>
+<h2 id="Fragments"><a href="#Fragments" class="headerlink" title="Fragments"></a>Fragments</h2><ul>
+<li>React.Fragment（ &lt;&gt;&lt;&#x2F;&gt; ）</li>
+</ul>
+<h2 id="Refs"><a href="#Refs" class="headerlink" title="Refs"></a>Refs</h2><ul>
+<li>React.createRef</li>
+<li>React.forwardRef</li>
+</ul>
+<h2 id="Suspense"><a href="#Suspense" class="headerlink" title="Suspense"></a>Suspense</h2><ul>
+<li>React.lazy</li>
+<li>React.Suspense（懒加载组件）</li>
+</ul>
+<h1 id="React-Component"><a href="#React-Component" class="headerlink" title="React.Component"></a>React.Component</h1><ul>
+<li>组件的生命周期<ul>
+<li>挂载<ul>
+<li><strong>constructor()</strong></li>
+<li>static getDerivedStateFromProps()</li>
+<li><strong>render()</strong></li>
+<li><strong>componentDidMount()</strong></li>
+</ul>
+</li>
+<li>更新<ul>
+<li>static getDerivedStateFromProps()</li>
+<li><strong>shouldComponentUpdate()</strong></li>
+<li><strong>render()</strong></li>
+<li>getSnapshotBeforeUpdate()</li>
+<li><strong>componentDidUpdate()</strong></li>
+</ul>
+</li>
+<li>卸载<ul>
+<li>componentWillUnmount()</li>
+</ul>
+</li>
+<li>错误处理<ul>
+<li>static getDerivedStateFromError()</li>
+<li>componentDidCatch()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其他 APIS<ul>
+<li>额外API<ul>
+<li>setState()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setState</span>(updater, [callback])</span><br><span class="line"><span class="comment">// callback在 setState 完成合并并重新渲染组件后执行，建议使用componentDidUpdate()代替</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>- forceUpdate()
+  - render() 依赖其他数据，调用此方法强制组件重新渲染
+</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">component.<span class="title function_">forceUpdate</span>(callback)</span><br><span class="line"><span class="comment">// 调用此方法使组件调用 render() 方法，跳过该组件的shouldComponentUpdate()，其子组件会触发正常生命周期</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>class 属性</p>
+<ul>
+<li>defaultProps</li>
+<li>displayName</li>
+</ul>
+</li>
+<li><p>实例属性</p>
+<ul>
+<li>props<ul>
+<li>⚠️：this.props.children 是特殊的prop，通常由 JSX表达式中的子组件组成</li>
+</ul>
+</li>
+<li>state</li>
+</ul>
+</li>
+<li><p>render()</p>
+<ul>
+<li>class组件中唯一必须实现的方法</li>
+<li>应该为纯函数，不修改组件state，每次调用返回相同的结果，它不会直接与浏览器交互</li>
+<li>如需与浏览器交互，在componentDidMount()或其他生命周期中执行</li>
+<li>⚠️ shouldComponentUpdate()返回 false，则不会调用render()</li>
+<li>render被调用时，检查 <code>this.props</code> <code>this.state</code>的变化并返回类型：<ul>
+<li>React元素（DOM节点｜自定义组件）</li>
+<li>数组或fragment（多个元素）</li>
+<li>portal</li>
+<li>字符串或数值类型（文本节点）</li>
+<li>布尔类型或null（什么都不渲染）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>constructor()</p>
+<ul>
+<li>不初始化state 或 不绑定方法，不需要使用</li>
+<li>在为React.Component子类实现构造函数时，应在其他语句之前调用 <code>super(props)</code>（this.props在构造函数中定义）</li>
+<li>用于两种情况<ul>
+<li>通过给 <code>this.state</code> 赋值对象来初始化内部state</li>
+<li>为事件处理函数绑定实例</li>
+</ul>
+</li>
+<li>⚠️ constructor()函数中不要调用setState()方法</li>
+<li>⚠️ 避免将 props 的值 赋值给 state</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="comment">// 不要这样做</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;<span class="attr">color</span>: props.<span class="property">color</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 更新prop中的color，并不会影响state</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>componentDidMount()</p>
+<ul>
+<li>组件挂载后（插入DOM树中）立即调用，依赖DOM节点初始化应该放在这</li>
+<li>适合添加订阅</li>
+</ul>
+</li>
+<li><p>componentDidUpdate()</p>
+<ul>
+<li>首次渲染不会执行，更新后被立即调用，可在此处对DOM进行操作</li>
+<li>调用setState() 必须被条件语句包裹，否则会死循环</li>
+<li>⚠️ shouldComponentUpdate()返回 false，componentDidUpdate()</li>
+</ul>
+</li>
+<li><p>componentWillUnmount()</p>
+<ul>
+<li>组件卸载、销毁之前立即调用，执行必要的清理操作（清除timer，取消订阅）a</li>
+<li>不应调用setState()，该组件永远不会重新渲染。</li>
+<li>组件实例卸载后，永远不会在挂载它</li>
+</ul>
+</li>
+<li><p>不常用的生命周期</p>
+<ul>
+<li><p>shouldComponentUpdate()</p>
+<ul>
+<li>state每次发生变化组件都会重新渲染，返回值默认为true，</li>
+<li>仅作为性能优化的方式存在，不要靠它来阻止渲染：考虑使用内置 <code>PUreComponent</code>组件</li>
+<li>不建议深层比较或使用 <code>JSON.stringify()</code> 非常影响效率，且会损害性能</li>
+<li>返回false，则不会调用之后的生命周期</li>
+</ul>
+</li>
+<li><p>static getDerivedStateFromProps()</p>
+<ul>
+<li>render方法之前调用，返回一个对象更新state</li>
+<li>适用：state的值在任何时候都取决于props</li>
+<li>⚠️：不管什么原因，都会在每次渲染前触发此方法</li>
+</ul>
+</li>
+<li><p>getSnapshotBeforeUpdate()</p>
+<ul>
+<li>在render之后调用，组件能在发生改变之前从DOM获取信息，任何返回值作为参数传递给 <code>componentDidUpdate()</code></li>
+<li>可能出现在UI处理中（处理滚动位置）</li>
+</ul>
+</li>
+<li><p>Error boundaries（错误边界详解）</p>
+<ul>
+<li>React组件，会在子组件树中的任何位置捕获js错误并记录，展示降级UI而不是崩溃的组件书</li>
+<li>⚠️：无法捕获自身错误</li>
+</ul>
+</li>
+<li><p>static getDerivedStateFromError()</p>
+<ul>
+<li>会在渲染阶段调用</li>
+</ul>
+</li>
+<li><p>componentDidCatch()</p>
+<ul>
+<li>提交 阶段被调用，用于记录错误</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="ReactDom"><a href="#ReactDom" class="headerlink" title="ReactDom"></a>ReactDom</h1><ul>
+<li>通过<code>&lt;script&gt;</code> 标签引入 React，所有顶层API都能在全局ReactDom上调用</li>
+</ul>
+<h2 id="可在应用顶层使用的DOM方法"><a href="#可在应用顶层使用的DOM方法" class="headerlink" title="可在应用顶层使用的DOM方法"></a>可在应用顶层使用的DOM方法</h2><ul>
+<li>render()<ul>
+<li>首次调用，容器节点中所有DOM元素都会替换，后续使用diff算法更新</li>
+<li>不会修改容器节点，只会修改容器的子节点</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(element, container[, callback</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h2 id="hydrate"><a href="#hydrate" class="headerlink" title="hydrate()"></a>hydrate()</h2></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">hydrate</span>(element, container[, callback</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>unmountComponentAtNode()<ul>
+<li>从DOM中卸载组件，事件处理器和state一并清除</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 没有指定容器，函数什么也不做</span></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">unmountComponentAtNode</span>(container)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>findDOMNode()<ul>
+<li>大多数情况可以绑定ref到DOM节点，可以避免使用此方法</li>
+<li>⚠️：一个访问底层DOM节点的应急方案，大多数情况不推荐使用。严格模式下该方法已弃用</li>
+<li>只在已放置在DOM中的组件可用，如调用未挂载组件，会异常</li>
+<li>不能用于函数组件</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">findDOMNode</span>(component)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>createPortal()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建portal</span></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">createPortal</span>(child, container)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ReactDOMClient"><a href="#ReactDOMClient" class="headerlink" title="ReactDOMClient"></a>ReactDOMClient</h1><h1 id="ReactDOMServer"><a href="#ReactDOMServer" class="headerlink" title="ReactDOMServer"></a>ReactDOMServer</h1><ul>
+<li>允许将组件渲染成静态标记，通常被使用在Node服务端上</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES modules</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOMServer</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom/server&#x27;</span>;</span><br><span class="line"><span class="comment">// CommonJS</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">ReactDOMServer</span> = <span class="built_in">require</span>(<span class="string">&#x27;react-dom/server&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以被使用在服务端和浏览器环境<ul>
+<li>renderToString()<ul>
+<li>在服务端生成HTML，在首次请求时标记加快页面加载速度进行SEO优化</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOMServer</span>.<span class="title function_">renderToString</span>(element)</span><br></pre></td></tr></table></figure>
+
+<pre><code>- renderToStaticMarkup()
+    - 与renderToString相似，但他不会在React内部创建额外DOM属性
+</code></pre>
+<ul>
+<li>只能在服务端使用（输出HTML完全等同于上面）<ul>
+<li>renderToNodeStream()</li>
+<li>renderToStaticNodeStream()</li>
+</ul>
+</li>
+</ul>
+<h1 id="DOM-元素"><a href="#DOM-元素" class="headerlink" title="DOM 元素"></a>DOM 元素</h1><ul>
+<li>所有DOM 特性和属性（包括事件处理）都是小驼峰命名</li>
+</ul>
+<h2 id="属性差异"><a href="#属性差异" class="headerlink" title="属性差异"></a>属性差异</h2><ul>
+<li><p>checked</p>
+<ul>
+<li><code>&lt;input&gt;</code> 组件的 type 类型为 <code>checkbox</code>、<code>radio</code>，组件支持 checked属性，<code>defaultChecked</code>是非受控组件的属性</li>
+</ul>
+</li>
+<li><p>className</p>
+</li>
+<li><p>danderouslySetInnerHTML</p>
+<ul>
+<li>React为浏览器DOM提供 innerHTML的替换方案</li>
+<li>直接设置容易暴露用户</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createMarkup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">__html</span>: <span class="string">&#x27;First &amp;middot; Second&#x27;</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">dangerouslySetInnerHTML</span>=<span class="string">&#123;createMarkup()&#125;/</span>&gt;</span></span><span class="string">`</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>htmlFor</p>
+</li>
+<li><p>onChange</p>
+</li>
+<li><p>selected</p>
+<ul>
+<li><option> 组件支持 selected</li>
+</ul>
+</li>
+<li><p>style</p>
+<ul>
+<li>多用于在渲染过程中添加动态计算的样式</li>
+<li>React自动添加’px’    <code>&lt;div style=&#123;&#123; height: 10 &#125;&#125;&gt; &lt;/div&gt;</code></li>
+</ul>
+</li>
+<li><p>suppressContentEditableWarning</p>
+<ul>
+<li>React 服务端渲染会在服务端与客户端渲染不同的内容时发出警告</li>
+<li>为 true，则不会警告，它只对元素一级深度有效</li>
+</ul>
+</li>
+<li><p>value</p>
+<ul>
+<li><code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 支持value，<code>defaultValue</code> 是非受控组件的属性</li>
+</ul>
+</li>
+<li><p>All Supported HTML Attributes（自定义DOM属性：全为小写）</p>
+</li>
+</ul>
+<h1 id="合成事件"><a href="#合成事件" class="headerlink" title="合成事件"></a>合成事件</h1><h1 id="Test-Utilities（React组件测试）"><a href="#Test-Utilities（React组件测试）" class="headerlink" title="Test Utilities（React组件测试）"></a>Test Utilities（React组件测试）</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ReactTestUtils</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom/test-utils&#x27;</span>; <span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">ReactTestUtils</span> = <span class="built_in">require</span>(<span class="string">&#x27;react-dom/test-utils&#x27;</span>); <span class="comment">// ES5 使用 npm 的方式</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>act()</li>
+<li>mockComponent()</li>
+<li>isElement()</li>
+<li>isElementOfType()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">isElementOfType</span>(</span><br><span class="line">    element,</span><br><span class="line">    componentClass</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>isDOMComponent()</li>
+<li>isCompositeComponent()</li>
+<li>isCompositeComponentWithType()</li>
+<li>findAllInRenderedTree()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 遍历所有在参数 tree 中的组件，记录所有 test(component) 为 true 的组件</span></span><br><span class="line"><span class="title function_">findAllInRenderedTree</span>(</span><br><span class="line">    tree,</span><br><span class="line">    test</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>scryRenderedDOMComponentsWithClass()</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 查找渲染树中组件的所有 DOM 元素， css 与className 匹配的 DOM 组件</span><br><span class="line">scryRenderedDOMComponentsWithClass(</span><br><span class="line">  tree,</span><br><span class="line">  className</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>findRenderedDOMComponentWithClass() 与上一致，找到返回一个结果，相反抛异常</li>
+<li>scryRenderedDOMComponentsWithTag()</li>
+<li>findRenderedDOMComponentWithTag()</li>
+<li>scryRenderedComponentsWithType</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">scryRenderedComponentsWithType</span>(</span><br><span class="line">    tree,</span><br><span class="line">    componentClass</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>findRenderedComponentWithType()</p>
+</li>
+<li><p>renderIntoDocument()</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染 React 元素到 document 中的某个单独的 DOM 节点上。</span></span><br><span class="line"><span class="title function_">renderIntoDocument</span>(element)</span><br><span class="line"><span class="comment">// 相当于</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> domContainer = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(element, domContainer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ⚠️：在引入 React 之前确保 window 存在，window.document 和 window.document.createElement 能在全局环境中获取到</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Simulate</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用可选的 eventData 事件数据来模拟在 DOM 节点上触发事件。</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Simulate</span>.</span><br><span class="line">&#123;</span><br><span class="line">    eventName</span><br><span class="line">&#125;</span><br><span class="line">(</span><br><span class="line">    element,</span><br><span class="line">        [eventData]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &lt;button ref=&#123;(node) =&gt; this.button = node&#125;&gt;...&lt;/button&gt;</span></span><br><span class="line"><span class="keyword">const</span> node = <span class="variable language_">this</span>.<span class="property">button</span>;</span><br><span class="line"><span class="title class_">ReactTestUtils</span>.<span class="property">Simulate</span>.<span class="title function_">click</span>(node);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Test-Renderer"><a href="#Test-Renderer" class="headerlink" title="Test Renderer"></a>Test Renderer</h1><ul>
+<li>提供React渲染器，用于将组件渲染成js对象，无需依赖DOM、原生移动环境</li>
+<li>不依赖浏览器或jsdom情况下，返回某个时间点由 React DOM 或者 React Native 平台渲染出的视图结构（类似与 DOM 树）快照</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">TestRenderer</span> <span class="keyword">from</span> <span class="string">&#x27;react-test-renderer&#x27;</span>; <span class="comment">// ES6</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">TestRenderer</span> = <span class="built_in">require</span>(<span class="string">&#x27;react-test-renderer&#x27;</span>); <span class="comment">// ES5 with npm</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TestRenderer</span> <span class="keyword">from</span> <span class="string">&#x27;react-test-renderer&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Link</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#123;props.page&#125;</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> testRenderer = <span class="title class_">TestRenderer</span>.<span class="title function_">create</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Link</span> <span class="attr">page</span>=<span class="string">&quot;https://www.facebook.com/&quot;</span>&gt;</span>Facebook<span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(testRenderer.<span class="title function_">toJSON</span>());</span><br><span class="line"><span class="comment">// &#123; type: &#x27;a&#x27;,</span></span><br><span class="line"><span class="comment">//   props: &#123; href: &#x27;https://www.facebook.com/&#x27; &#125;,</span></span><br><span class="line"><span class="comment">//   children: [ &#x27;Facebook&#x27; ] &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="TestRenderer"><a href="#TestRenderer" class="headerlink" title="TestRenderer"></a>TestRenderer</h2><ul>
+<li>TestRenderer.create()<ul>
+<li>它并不使用真实的 DOM，但是它依然将组件树完整地渲染到内存，以便于你对它进行断言</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建 TestRenderer 实例</span></span><br><span class="line"><span class="title class_">TestRenderer</span>.<span class="title function_">create</span>(element, options);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>TestRenderer.act()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TestRenderer</span>.<span class="title function_">act</span>(callback);</span><br></pre></td></tr></table></figure>
+
+<h2 id="TestRenderer-instance"><a href="#TestRenderer-instance" class="headerlink" title="TestRenderer instance"></a>TestRenderer instance</h2><ul>
+<li><p>testRenderer.toJSON()</p>
+<ul>
+<li>返回一个已渲染的的树对象</li>
+</ul>
+</li>
+<li><p>testRenderer.toTree()</p>
+<ul>
+<li>内容比 toJSON() 提供的内容要更加详细，并且包含用户编写的组件</li>
+<li>除非在测试渲染器（test renderer）之上编写自己的断言库，否则可能不需要这个</li>
+</ul>
+</li>
+<li><p>testRenderer.update()</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用新的根元素重新渲染内存中的树</span></span><br><span class="line"><span class="comment">// 新的元素和之前的元素有相同的 type 和 key，该树将会被更新；否则，它将重挂载一个新树</span></span><br><span class="line">testRenderer.<span class="title function_">update</span>(element)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>testRenderer.unmount()<ul>
+<li>卸载内存中的树，会触发相应的生命周期事件</li>
+</ul>
+</li>
+<li>testRenderer.getInstance()<ul>
+<li>返回与根元素相对应的实例。如果根元素是函数定义组件，该方法无效，因为函数定义组件没有实例</li>
+</ul>
+</li>
+<li>testRenderer.root<ul>
+<li>返回根元素“测试实例”对象，利用它查找其他更深层的“测试实例”</li>
+</ul>
+</li>
+</ul>
+<h2 id="TestInstance"><a href="#TestInstance" class="headerlink" title="TestInstance"></a>TestInstance</h2><ul>
+<li>testInstance.find()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找到一个 test(testInstance) 返回 true 的后代测试实例,如果多个测试实例匹配，将会报错</span></span><br><span class="line">testInstance.<span class="title function_">find</span>(test)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>testInstance.findByType()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果多个测试实例匹配，将会报错</span></span><br><span class="line">testInstance.<span class="title function_">findByType</span>(type)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>testInstance.findByProps()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果多个测试实例匹配，将会报错</span></span><br><span class="line">testInstance.<span class="title function_">findByProps</span>(props)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>testInstance.findAll()</li>
+<li>testInstance.findAllByType()</li>
+<li>testInstance.findAllByProps()</li>
+<li>testInstance.instance<ul>
+<li>该测试实例相对应的组件实例</li>
+<li>只能用于类组件</li>
+</ul>
+</li>
+<li>testInstance.type</li>
+<li>testInstance.props</li>
+<li>testInstance.parent</li>
+<li>testInstance.children</li>
+</ul>
+<h1 id="js-环境要求"><a href="#js-环境要求" class="headerlink" title="js 环境要求"></a>js 环境要求</h1><ul>
+<li>React依赖集合类型<code>Map</code>和<code>Set</code>，兼容浏览器与设备，在应用库中包含全局的polyfill（core-js 或 babel-polyfill ）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;core-js/es/map&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;core-js/es/set&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h1 id="React-术语词汇表"><a href="#React-术语词汇表" class="headerlink" title="React 术语词汇表"></a>React 术语词汇表</h1><h2 id="单页面应用"><a href="#单页面应用" class="headerlink" title="单页面应用"></a>单页面应用</h2><ul>
+<li>一个应用程序，可以加载单个HTML页面和程序所需所有的必要资源（js、css）</li>
+<li>与页面的任何交互，都不需要加载资源，页面不会重新加载</li>
+</ul>
+<h2 id="Compiler（编译器）"><a href="#Compiler（编译器）" class="headerlink" title="Compiler（编译器）"></a>Compiler（编译器）</h2><ul>
+<li>常见用例：接受ES6 语法，转换为旧版本浏览器能够执行的语法（Babel）</li>
+</ul>
+<h2 id="Bundler（打包工具）"><a href="#Bundler（打包工具）" class="headerlink" title="Bundler（打包工具）"></a>Bundler（打包工具）</h2><ul>
+<li>接收单独模块的js和css代码，进行组合（webpack、Browserify）</li>
+</ul>
+<h2 id="Package-管理工具"><a href="#Package-管理工具" class="headerlink" title="Package 管理工具"></a>Package 管理工具</h2><ul>
+<li>管理项目依赖的工具（npm、yarn：它们都是使用了相同 npm package registry 的客户端）</li>
+</ul>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><ul>
+<li>内容分发网络</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/React/">React</a></div><div class="post_share"><div class="social-share" data-image="https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/10/js/JavaScript%20-%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/"><img class="prev-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JavaScript</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/03/react/React%20-%20Hooks/"><img class="next-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">React - Hooks</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/05/01/react/React%20-%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" title="React - 核心概念"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-01</div><div class="title">React - 核心概念</div></div></a></div><div><a href="/2019/05/02/react/React%20-%20%E9%AB%98%E7%BA%A7%E6%8C%87%E5%BC%95/" title="React - 高级指引"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/4.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-02</div><div class="title">React - 高级指引</div></div></a></div><div><a href="/2019/05/03/react/React%20-%20Hooks/" title="React - Hooks"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/2.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-03</div><div class="title">React - Hooks</div></div></a></div><div><a href="/2022/08/13/react/React%20-%20%E6%BA%90%E7%A0%81/" title="React -  源码"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/3.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">React -  源码</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#React-%E9%A1%B6%E5%B1%82-API"><span class="toc-text">React 顶层 API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6"><span class="toc-text">组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-React-%E5%85%83%E7%B4%A0"><span class="toc-text">创建 React 元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0"><span class="toc-text">操作元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fragments"><span class="toc-text">Fragments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Refs"><span class="toc-text">Refs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Suspense"><span class="toc-text">Suspense</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Component"><span class="toc-text">React.Component</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ReactDom"><span class="toc-text">ReactDom</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%9C%A8%E5%BA%94%E7%94%A8%E9%A1%B6%E5%B1%82%E4%BD%BF%E7%94%A8%E7%9A%84DOM%E6%96%B9%E6%B3%95"><span class="toc-text">可在应用顶层使用的DOM方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hydrate"><span class="toc-text">hydrate()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ReactDOMClient"><span class="toc-text">ReactDOMClient</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ReactDOMServer"><span class="toc-text">ReactDOMServer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DOM-%E5%85%83%E7%B4%A0"><span class="toc-text">DOM 元素</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E5%B7%AE%E5%BC%82"><span class="toc-text">属性差异</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6"><span class="toc-text">合成事件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Test-Utilities%EF%BC%88React%E7%BB%84%E4%BB%B6%E6%B5%8B%E8%AF%95%EF%BC%89"><span class="toc-text">Test Utilities（React组件测试）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Test-Renderer"><span class="toc-text">Test Renderer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TestRenderer"><span class="toc-text">TestRenderer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TestRenderer-instance"><span class="toc-text">TestRenderer instance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TestInstance"><span class="toc-text">TestInstance</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js-%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-text">js 环境要求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-%E6%9C%AF%E8%AF%AD%E8%AF%8D%E6%B1%87%E8%A1%A8"><span class="toc-text">React 术语词汇表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8"><span class="toc-text">单页面应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compiler%EF%BC%88%E7%BC%96%E8%AF%91%E5%99%A8%EF%BC%89"><span class="toc-text">Compiler（编译器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundler%EF%BC%88%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="toc-text">Bundler（打包工具）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Package-%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-text">Package 管理工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDN"><span class="toc-text">CDN</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/1.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2022 By 刘俊宏</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>

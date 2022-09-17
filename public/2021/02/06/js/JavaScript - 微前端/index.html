@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="cn" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JavaScript - 微前端 | Jassica</title><meta name="keywords" content="JavaScript"><meta name="author" content="刘俊宏"><meta name="copyright" content="刘俊宏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="微前端概念 微前端是一种类似于微服务的架构，将微服务的理念应用于浏览器端，将web应用由单一的单体应用转变为多个小型前端应用聚合为一的应用，各个前端应用独立运行、独立开发、独立部署。  当前前端应用通常以spa的形态（一个应用所有的相关页面都在一个项目）出现。随着项目迭代，维护成本越来越高。微前端的意义在于 拆分项目：细化为若干个可以单独部署的子项目，子项目互相独立，单独部署  微前端结构下，不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - 微前端">
+<meta property="og:url" content="http://example.com/2021/02/06/js/JavaScript%20-%20%E5%BE%AE%E5%89%8D%E7%AB%AF/index.html">
+<meta property="og:site_name" content="Jassica">
+<meta property="og:description" content="微前端概念 微前端是一种类似于微服务的架构，将微服务的理念应用于浏览器端，将web应用由单一的单体应用转变为多个小型前端应用聚合为一的应用，各个前端应用独立运行、独立开发、独立部署。  当前前端应用通常以spa的形态（一个应用所有的相关页面都在一个项目）出现。随着项目迭代，维护成本越来越高。微前端的意义在于 拆分项目：细化为若干个可以单独部署的子项目，子项目互相独立，单独部署  微前端结构下，不同">
+<meta property="og:locale">
+<meta property="og:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg">
+<meta property="article:published_time" content="2021-02-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-14T12:01:51.682Z">
+<meta property="article:author" content="刘俊宏">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg"><link rel="shortcut icon" href="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"><link rel="canonical" href="http://example.com/2021/02/06/js/JavaScript%20-%20%E5%BE%AE%E5%89%8D%E7%AB%AF/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript - 微前端',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-14 20:01:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://byblog.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jassica</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript - 微前端</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2021-02-05T16:00:00.000Z" title="Created 2021-02-06 00:00:00">2021-02-06</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="微前端"><a href="#微前端" class="headerlink" title="微前端"></a>微前端</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li><p>微前端是一种类似于微服务的架构，将微服务的理念应用于浏览器端，将web应用由单一的单体应用转变为<strong>多个小型前端应用聚合为一的应用</strong>，各个前端应用独立运行、独立开发、独立部署。</p>
+</li>
+<li><p>当前前端应用通常以spa的形态（一个应用所有的相关页面都在一个项目）出现。随着项目迭代，维护成本越来越高。微前端的意义在于 <strong>拆分项目</strong>：细化为若干个可以单独部署的子项目，子项目互相独立，单独部署</p>
+</li>
+<li><p>微前端结构下，不同技术栈的子项目可以共存</p>
+</li>
+<li><p>可以低成本整合已有项目。因为子项目是独立的，不需要太大的工作量就可迁至新项目</p>
+</li>
+</ul>
+<h2 id="qiankun（乾坤）"><a href="#qiankun（乾坤）" class="headerlink" title="qiankun（乾坤）"></a>qiankun（乾坤）</h2><ul>
+<li><p><code>qiankun</code> 是一个基于<code>single-spa</code> 的微前端库（二次开发）</p>
+</li>
+<li><p><code>single-spa</code>：是一个用于微服务化的js前端解决方案</p>
+<ul>
+<li>将子应用看作一个spa的页面，主应用通过路由匹配的方式，加载不同的子应用，子应用会经过下载（loaded）、初始化（initialized）、被挂载（unmounted）、被移除(unloaded)等过程</li>
+</ul>
+</li>
+</ul>
+<h3 id="主应用"><a href="#主应用" class="headerlink" title="主应用"></a>主应用</h3><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`yarn add qiankun`</span> <span class="comment">// `npm i qiankun -S`</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注册微应用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;registerMicroApps, start&#125; <span class="keyword">from</span> <span class="string">&#x27;qiankun&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">registerMicroApps</span>([</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;react-app&#x27;</span>,</span><br><span class="line">        <span class="attr">entry</span>: <span class="string">&#x27;//localhost:7100&#x27;</span>,</span><br><span class="line">        <span class="attr">container</span>: <span class="string">&#x27;#yourContainer&#x27;</span>,</span><br><span class="line">        <span class="attr">activeRule</span>: <span class="string">&#x27;/yourActiveRule&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;vue-app&#x27;</span>,</span><br><span class="line">        <span class="attr">entry</span>: &#123;<span class="attr">scripts</span>: [<span class="string">&#x27;//localhost:7100/main.js&#x27;</span>]&#125;,</span><br><span class="line">        <span class="attr">container</span>: <span class="string">&#x27;#yourContainer&#x27;</span>,</span><br><span class="line">        <span class="attr">activeRule</span>: <span class="string">&#x27;/yourActiveRule&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="title function_">start</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浏览器的url变化，触发qiankun的匹配逻辑，所有activeRule规则匹配上的微应用就会被插入到指定的container中，同时依次调用微应用暴露出的生命周期钩子</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="微应用"><a href="#微应用" class="headerlink" title="微应用"></a>微应用</h3><ul>
+<li>导出对应的生命周期钩子（通常是配置的webpack 的 entry）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* bootstrap </span></span><br><span class="line"><span class="comment">* 只会在微应用初始化的时候调用一次，下次微应用重新进入会直接调用mount钩子，不会再重复触发bootstrap</span></span><br><span class="line"><span class="comment">* 在这里可以做一些全局变量的初始化，比如不会在 unmount阶段被销毁的应用级别的缓存等</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;react app bootstraped&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 应用每次进入都会调用mount 方法，通常在这里触发应用的渲染方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">mount</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">APP</span>/&gt;</span></span>, props.<span class="property">container</span> ? props.<span class="property">container</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#root&#x27;</span>) : <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 应用每次 切出/卸载 会调用，通常在这里卸载应用的应用实例</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">unmount</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="title class_">ReactDOM</span>.<span class="title function_">unmountComponentAtNode</span>(props.<span class="property">contains</span> ? props.<span class="property">container</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#root&#x27;</span>) : <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 可选生命周期钩子，仅使用 loadMicroApp 方式加载微应用时生效</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">update</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;update props&#x27;</span>, props);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置微应用的打包工具"><a href="#配置微应用的打包工具" class="headerlink" title="配置微应用的打包工具"></a>配置微应用的打包工具</h3><ul>
+<li>为了让主应用能正确识别微应用暴露出来的一些信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> packageName = <span class="built_in">require</span>(<span class="string">&#x27;./package.json&#x27;</span>).<span class="property">name</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">library</span>: <span class="string">`<span class="subst">$&#123;packageName&#125;</span>-[name]`</span>,</span><br><span class="line">        <span class="attr">libraryTarget</span>: <span class="string">&#x27;umd&#x27;</span>,</span><br><span class="line">        <span class="attr">jsonpFunction</span>: <span class="string">`webpackJsonp_<span class="subst">$&#123;packageName&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><ul>
+<li>官方提供 <code>Actions</code> 通信：适合业务划分清晰，通信较少的微前端应用场景<ul>
+<li>内部提供了 <code>initGlobalState</code> 方法用于注册 <code>MicroAppStateActions</code> 实现用于通信，该实例有三个方法</li>
+<li><code>setGlobalState</code> 设置 <code>globalState</code></li>
+<li><code>onGlobalStateChange</code>：注册<code>观察者</code>函数，响应 <code>globalState</code> 变化，在 <code>globalState</code> 发生改变时触发该观察者函数</li>
+<li><code>offGlobalStateChange</code>: 取消<code>观察者</code>函数， 该实例不再响应 <code>globalState</code> 变化</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主应用</span></span><br><span class="line"><span class="keyword">import</span> &#123;initGlobalState&#125; <span class="keyword">from</span> <span class="string">&#x27;qiankun&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">    <span class="comment">// 初始化数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化state</span></span><br><span class="line"><span class="keyword">const</span> actions = <span class="title function_">initGlobalState</span>(initialState)</span><br><span class="line"></span><br><span class="line">actions.<span class="title function_">onGlobalStateChange</span>(<span class="function">(<span class="params">state, prev</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 监听公共状态的变化</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;主应用变更前&#x27;</span>, prev)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;主应用变更后&#x27;</span>, state)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> actions</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件中</span></span><br><span class="line"><span class="keyword">import</span> actions <span class="keyword">from</span> <span class="string">&#x27;./actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">sendMsg</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">    actions.<span class="title function_">setGlobalState</span>(<span class="variable language_">this</span>.<span class="property">msg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>localStorage、sessionStorage</code> 实现：适合跟踪通信状态，类似用户登陆信息</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/07/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86/"><img class="prev-cover" src="https://c.zhiyan.wang/1da07c49ac081756655e6384f942847dd6323153.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">深入理解计算机原理</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/25/js/JavaScript%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/"><img class="next-cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/311ce36d52f16c1f85ad648b214ab4b4f29dcfab.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">v8 的事件循环</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2020/03/18/js/JavaScript%20-%20%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" title="JavaScript - 垃圾回收"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/c1bf8b0bda021c37da1005ffe0e30b1758874132.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-18</div><div class="title">JavaScript - 垃圾回收</div></div></a></div><div><a href="/2019/06/05/js/JavaScript%20-%20%E7%BB%A7%E6%89%BF/" title="JavaScript - 继承"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/f02edc75f539318a6b642f6cb91f33f49c0074ed.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-05</div><div class="title">JavaScript - 继承</div></div></a></div><div><a href="/2019/05/10/js/JavaScript/" title="JavaScript"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/52e117cbb8fca1cf66355eb73a060de6c1952bf7.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-10</div><div class="title">JavaScript</div></div></a></div><div><a href="/2019/06/06/js/JavaScript%20-%20%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" title="JavaScript - 防抖和节流"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/46889eea6d0674bb77690ab8656721804f555de9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-06</div><div class="title">JavaScript - 防抖和节流</div></div></a></div><div><a href="/2019/05/27/js/JavaScript%20-%20Promise/" title="JavaScript - Promise"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a50c68a33bd7333fd112ddb575f1b9adc5788d88.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-27</div><div class="title">JavaScript - Promise</div></div></a></div><div><a href="/2019/11/21/js/JavaScript%20-%20%E5%85%B3%E4%BA%8ErequestAnimationFrame/" title="JavaScript - requestAnimationFrame"><img class="cover" src="https://byblog.oss-cn-hangzhou.aliyuncs.com/a8e180bb17a9f555c05c0bf9045b5fe25f921faa.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-21</div><div class="title">JavaScript - requestAnimationFrame</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E5%89%8D%E7%AB%AF"><span class="toc-text">微前端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#qiankun%EF%BC%88%E4%B9%BE%E5%9D%A4%EF%BC%89"><span class="toc-text">qiankun（乾坤）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%BA%94%E7%94%A8"><span class="toc-text">主应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E5%BA%94%E7%94%A8"><span class="toc-text">微应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%BE%AE%E5%BA%94%E7%94%A8%E7%9A%84%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7"><span class="toc-text">配置微应用的打包工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1"><span class="toc-text">通信</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://byblog.oss-cn-hangzhou.aliyuncs.com/034228206951a9f937222fe57296930f78008cb1.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2022 By 刘俊宏</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
