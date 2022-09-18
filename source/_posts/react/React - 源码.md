@@ -254,6 +254,102 @@ function ensureRootIsScheduled(root,currentTime){
   - requestUpdateLane 获取的lane的优先级不同
   - 函数scheduleUpdateOnFiber中根据不同优先级进入不同分支：legacy模式进入performSyncWorkOnRoot, concurrent模式会异步调度performConcurrentWorkOnRoot
 
+# Fiber
+
+- react15在render阶段的reconcile是不可打断的，进行大量节点的reconcile可能卡顿，因为js是单线程，浏览器所有时间都交给js执行。所以react16之后有了scheduler进行时间片的调度，给每个工作单元一定的时间，如果在这个时间内没执行完，也要交出执行权给浏览器进行绘制和重排。所以异步可中断的更新需要在内存中来保存工作的信息，这个数据结构就是Fiber
+
+- Fiber做的事情
+  - `工作单元 任务拆解`：保存原生节点｜组件节点对应信息(包括优先级)，这些节点通过指针形成Fiber树
+  - `增量渲染`：jsx对象和current Fiber对比，生成最小的差异补丁，应用到真实节点
+  - `根据优先级暂停、继续、排列优先级`：保存节点优先级，通过不同节点优先级对比，达到任务暂停、继续、排列优先级等，也为上层实现批量更新、Suspense提供了基础
+  - `保存状态`：因为Fiber能保存状态和更新信息，所以就能实现函数组建的状态更新，就是hooks
+
+- fiberRoot：整个应用的根节点，只有一个
+- rootFiber：ReactDOM.render｜ReactDOM.unstable_createRoot创建的应用节点，可以存在多个
+
+```js
+// ReactFiber.old.js
+function FiberNode(
+    tag: WorkTag,
+    peddingProps: mixed,
+    key: null | string,
+    mode: TypeOfMode
+){
+  // 作为静态数据结构，保存节点信息
+  this.tag = tag; // 对应组件类型
+  this.key = key; // key属性
+  this.elementType = null; // 元素类型
+  this.type = null; // func｜class
+  this.stateNode = null; // 真实dom节点 
+  
+  // 作为fiber树架构，连接成fiber树
+  this.return = null; // 指向副节点
+  this.child = null; // 指向child
+  this.sibling = null; // 指向兄弟节点
+  this.index = 0
+  
+  this.ref = null
+  // 用作为工作单元 计算state
+  this.pendProps = peddingProps;
+  this.memoizedProps = null;
+  this.updateQueue = null;
+  this.memoizedState = null;
+  this.dependencies = null;
+  
+  this.mode = mode;
+  
+  // effect相关
+  this.effectTag = NoEffect;
+  this.nextEffect = null;
+  this.firstEffect = null;
+  this.lastEffect = null;
+  
+  // 优先级相关属性
+  this.lanes = NoLanes;
+  this.childLanes = NoLanes;
+  
+  // current 和 workInProgress的指针
+  this.alternate = null;
+}
+```
+
+## 双缓存
+
+- Fiber双缓存：经过reconcile(diff)形成了新的`workInProgress Fiber`，将`workInProgress Fiber`切换成`current Fiber`应用到真实dom中
+- 好处：内存中形成视图的描述，最后应用到dom，减少对dom的操作
+
+- 真实dom对应在内存中的Fiber节点会形成Fiber树，在react中叫`current Fiber`，就是当前dom树对应的Fiber树，正在构建Fiber树叫 `workInProgress Fiber`，两棵树的节点通过 `alternate` 相连
+
+- 构建 `workInProgress Fiber` 发生在 `createWorkInProgress` 中，它能创建｜复用Fiber
+  - mount：创建fiberRoot和rootFiber -> 根据jsx创建`workInProgress Fiber` -> `workInProgress Fiber`切换成`current Fiber`
+  - update：根据current Fiber创建 workInProgress Fiber树 -> `workInProgress Fiber`切换成`current Fiber`
+ 
+
+# render
+
+- render阶段主要：构建Fiber树和生成effectList
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
